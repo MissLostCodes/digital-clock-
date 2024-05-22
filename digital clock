@@ -1,0 +1,50 @@
+      import jakarta.servlet.ServletException;
+import jakarta.servlet.http.*;
+import jakarta.servlet.*;
+import java.util.Calendar ;
+import java.util.GregorianCalendar ;
+import java.io.*;
+public class REFRESH extends HttpServlet {
+public  void doGet(HttpServletRequest request ,HttpServletResponse response )
+throws IOException , ServletException {
+response.setContentType("text/html");
+response.setIntHeader("Refresh",1);
+GregorianCalendar c = new GregorianCalendar();
+int hour = c.get(Calendar.HOUR);
+int min = c.get(Calendar.MINUTE);
+int sec = c.get(Calendar.SECOND);
+int date = c.get(Calendar.DATE);
+int month = c.get(Calendar.MONTH)+1;
+int year = c.get(Calendar.YEAR);
+String ampm  ;
+if (c.get(Calendar.AM_PM)==0) {
+ampm = "AM" ;   }
+else {
+ampm = "PM" ;  }
+PrintWriter pw = response.getWriter();
+pw.println("<!DOCTYPE html>");
+pw.println("<html lang=\"en\">");
+pw.println("<head>");
+pw.println("<meta charset=\"UTF-8\">");
+pw.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+pw.println("<title>Date and Time</title>");
+pw.println("<style>");
+pw.println("body { background-color: grey; }");
+pw.println("h1 { color: rgb(52, 49, 49); }");
+pw.println("#date, #time { color: rgb(77, 9, 20); text-align: center; font-size: 60px; }");
+pw.println("#c { height: 500px; width: 500px; margin:40px auto; border: 3px solid pink; padding:20px; border-radius: 40px ; box-shadow: 0 0 10px pink; background-color: rgba(242, 157, 194, 0.8); }");
+pw.println("</style>");
+pw.println("</head>");
+pw.println("<body>");
+pw.println("<div id=\"c\">");
+pw.println("<h1>DATE : </h1>");
+pw.println("<div id=\"date\">");
+pw.println("<h3>" + date + "/" + month + "/" + year + "</h3>");
+pw.println("</div>");
+pw.println("<h1>TIME : </h1>");
+pw.println("<div id=\"time\">");
+pw.println("<h3>" + hour + ":" + min + ":" + sec + " " + ampm + "</h3>");
+pw.println("</div>");
+pw.println("</div>");
+pw.println("</body>");  pw.println("</html>"); }}
+
